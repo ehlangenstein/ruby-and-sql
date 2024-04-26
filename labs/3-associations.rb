@@ -13,9 +13,28 @@ Activity.destroy_all
 #   into the activities table.  Follow the steps below to insert
 #   activity data in the database.  Afterwards, display a
 #   single salesperson's activity data:
+puts "There are #{Company.all.count} companies" 
+puts "There are #{Contact.all.count} contacts" 
+puts "There are #{Activity.all.count} activities"
 
 # 1. insert 3 rows in the activities table with relationships to
 # a single salesperson and 2 different contacts
+salesperson = Salesperson.find_by({"first_name"=>"Shelby"})
+contact1 = Contact.find_by({"first_name"=>"Tim", "last_name"=> "Cook"})
+contact2 = Contact.find_by({"first_name"=>"Steve", "last_name"=>"Jobs"})
+
+
+activity = Activity.new
+activity["salesperson_id"]=salesperson["id"]
+activity["contact_id"]=contact1["id"]
+activity["note"]="call with tim cook"
+activity.save 
+
+activity = Activity.new 
+activity["salesperson_id"]=salesperson["id"]
+activity["contact_id"]=contact2["id"]
+activity["note"] = "coffee chat with steve jobs"
+activity.save
 
 # 2. Display all the activities between the salesperson used above
 # and one of the contacts (sample output below):
